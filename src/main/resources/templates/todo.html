@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/todo.css">
+    <title>Mis Tareas | TaskFlow</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <input type="checkbox" id="theme-switch">
+        <label for="theme-switch" class="toggle-label">
+            <div class="toggle-thumb">🌙</div>
+        </label>
+    </div>
+
+    <div class="container">
+        <header class="todo-header">
+            <div class="todo-title">
+                <div class="todo-logo">TF</div>
+                <h1>Mis Tareas</h1>
+            </div>
+            <div class="user-menu">
+                <div class="user-avatar">JD</div>
+                <a href="login.html" class="logout-btn">Cerrar sesión</a>
+            </div>
+        </header>
+
+        <main class="todo-card">
+            <form class="todo-form" action="/todo/add" method="post">
+                <input type="text" name="task" class="todo-input" placeholder="Añadir nueva tarea..." required>
+                <button type="submit" class="add-btn">Añadir</button>
+            </form>
+
+            <ul class="todo-list">
+                <!-- Ejemplo de tarea completada -->
+                <li class="todo-item completed">
+                    <input type="checkbox" class="todo-checkbox" checked>
+                    <span class="todo-text">Crear diseño de la aplicación</span>
+                    <form action="/todo/delete" method="post" style="display: inline;">
+                        <input type="hidden" name="taskId" value="1">
+                        <button type="submit" class="delete-btn">✕</button>
+                    </form>
+                </li>
+                
+                <!-- Ejemplos de tareas pendientes -->
+                <li class="todo-item">
+                    <input type="checkbox" class="todo-checkbox">
+                    <span class="todo-text">Implementar autenticación de usuarios</span>
+                    <form action="/todo/delete" method="post" style="display: inline;">
+                        <input type="hidden" name="taskId" value="2">
+                        <button type="submit" class="delete-btn">✕</button>
+                    </form>
+                </li>
+                
+                <li class="todo-item">
+                    <input type="checkbox" class="todo-checkbox">
+                    <span class="todo-text">Crear base de datos para tareas</span>
+                    <form action="/todo/delete" method="post" style="display: inline;">
+                        <input type="hidden" name="taskId" value="3">
+                        <button type="submit" class="delete-btn">✕</button>
+                    </form>
+                </li>
+                
+                <li class="todo-item">
+                    <input type="checkbox" class="todo-checkbox">
+                    <span class="todo-text">Desplegar aplicación en servidor</span>
+                    <form action="/todo/delete" method="post" style="display: inline;">
+                        <input type="hidden" name="taskId" value="4">
+                        <button type="submit" class="delete-btn">✕</button>
+                    </form>
+                </li>
+            </ul>
+
+            <!-- Estado cuando no hay tareas -->
+            <!-- 
+            <div class="todo-empty">
+                <div class="todo-empty-icon">📋</div>
+                <p>No tienes tareas pendientes</p>
+                <p>Añade una nueva tarea para comenzar</p>
+            </div>
+            -->
+
+            <div class="todo-stats">
+                <span>4 tareas en total</span>
+                <span>1 completada • 3 pendientes</span>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-switch');
+        const body = document.body;
+        const toggleThumb = document.querySelector('.toggle-thumb');
+
+        // Cargar tema guardado
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+            toggleThumb.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                body.setAttribute('data-theme', 'dark');
+                toggleThumb.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.removeAttribute('data-theme');
+                toggleThumb.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>

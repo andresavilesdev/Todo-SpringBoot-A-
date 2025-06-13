@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/login.css">
+    <title>Iniciar Sesión | TaskFlow</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <input type="checkbox" id="theme-switch">
+        <label for="theme-switch" class="toggle-label">
+            <div class="toggle-thumb">🌙</div>
+        </label>
+    </div>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <div class="auth-logo">TF</div>
+            <h1>Bienvenido de nuevo</h1>
+            <p>Inicia sesión para acceder a tus tareas</p>
+        </div>
+        
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Ingresa tu nombre de usuario" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required>
+            </div>
+            
+            <button type="submit" class="btn">Iniciar sesión</button>
+        </form>
+        
+        <div class="auth-footer">
+            ¿No tienes una cuenta? <a href="signup.html">Registrarse</a>
+        </div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-switch');
+        const body = document.body;
+        const toggleThumb = document.querySelector('.toggle-thumb');
+
+        // Cargar tema guardado
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+            toggleThumb.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                body.setAttribute('data-theme', 'dark');
+                toggleThumb.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.removeAttribute('data-theme');
+                toggleThumb.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>
